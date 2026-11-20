@@ -1,0 +1,247 @@
+/* ---------- Конструктор стены ---------- */
+.builder {
+  margin-top: 32px;
+  display: grid;
+  gap: 20px;
+}
+
+.builder__tools {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.builder__group {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.builder__group legend {
+  width: 100%;
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.chip-option {
+  position: relative;
+}
+
+.chip-option input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.chip-option span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.chip-option input:checked + span {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+.chip-option input:focus-visible + span {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+.chip-option i {
+  display: inline-block;
+  border-radius: 2px;
+  background: var(--ink-soft);
+}
+
+.swatch span {
+  width: 44px;
+  padding: 0;
+  justify-content: center;
+}
+
+.swatch i {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid rgba(43, 36, 32, 0.18);
+}
+
+.builder__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.builder__actions .btn {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 15px;
+}
+
+.builder__stage {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.builder__board {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: clamp(10px, 2vw, 20px);
+}
+
+#builder-svg {
+  width: 100%;
+  height: auto;
+  touch-action: manipulation;
+  cursor: copy;
+  border-radius: 6px;
+}
+
+#builder-svg[data-tool='remove'] {
+  cursor: pointer;
+}
+
+#builder-svg:focus {
+  outline: none;
+}
+
+#builder-svg.is-keyboard:focus {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* На телефоне сначала основа, инструменты под ней */
+.builder__stage {
+  order: -1;
+}
+
+@media (min-width: 900px) {
+  .builder__stage {
+    order: 0;
+  }
+}
+
+.builder__tile {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-fast) var(--ease-smooth), opacity var(--dur-fast) ease;
+}
+
+.builder__tile rect {
+  stroke: rgba(43, 36, 32, 0.12);
+  stroke-width: 1;
+}
+
+.builder__tile.is-loose {
+  transform: translate(-2px, -4px) scale(1.04);
+  filter: drop-shadow(3px 6px 4px rgba(43, 36, 32, 0.4));
+  cursor: pointer;
+}
+
+.builder__tile.is-loose rect {
+  stroke: var(--green);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.builder__tile.is-pressing {
+  animation: builder-press var(--dur-normal) var(--ease-bounce);
+}
+
+.builder__tile.is-leaving {
+  transform: translate(-4px, -12px) scale(1.06);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#builder-svg[data-tool='remove'] .builder__tile:hover {
+  opacity: 0.75;
+}
+
+.builder__ghost {
+  display: none;
+  opacity: 0.55;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  pointer-events: none;
+}
+
+.builder__ghost.is-blocked {
+  fill: transparent;
+  stroke: var(--danger);
+  opacity: 0.9;
+}
+
+.builder__ghost.is-shake {
+  animation: builder-shake 0.3s ease;
+  transform-box: fill-box;
+}
+
+.builder__hint {
+  min-height: 1.5em;
+  font-weight: 600;
+}
+
+.builder__stats {
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.builder__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+@keyframes builder-press {
+  0% { transform: translate(-2px, -4px) scale(1.04); }
+  55% { transform: scale(0.96); }
+  100% { transform: none; }
+}
+
+@keyframes builder-shake {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@media (min-width: 900px) {
+  .builder {
+    grid-template-columns: 300px 1fr;
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .builder__tile,
+  .builder__tile.is-loose,
+  .builder__tile.is-leaving {
+    transition: none;
+    transform: none;
+  }
+
+  .builder__tile.is-pressing,
+  .builder__ghost.is-shake {
+    animation: none;
+  }
+}

@@ -1,0 +1,18 @@
+# Репозиторий публичный: в него попадает ТОЛЬКО код сайта.
+# Всё остальное (research/, docs/, print_kit/, cad/, архивы, CLAUDE.md) игнорируется по умолчанию.
+/*
+!/.gitignore
+!/.github/
+!/index.html
+!/package.json
+!/package-lock.json
+!/.env.example
+!/public/
+!/src/
+!/tests/
+
+node_modules
+dist
+.env
+.env.*
+!.env.example

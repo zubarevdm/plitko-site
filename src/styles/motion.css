@@ -1,0 +1,15 @@
+/* Появление блоков при прокрутке. Классы добавляет src/motion/reveal.js,
+   поэтому без JS и при отключённых анимациях всё видно сразу. */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--move-lg));
+  transition:
+    opacity var(--dur-slow) var(--ease-smooth),
+    transform var(--dur-slow) var(--ease-smooth);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}

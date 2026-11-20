@@ -1,0 +1,79 @@
+/* Схемы внутри FAQ: демонстрация и разрез. Цвета элементов совпадают на схеме и в списке. */
+
+/* ---------- Демонстрация ---------- */
+.demo {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 18px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  background: #f4ebda;
+}
+
+.demo svg {
+  width: 100%;
+  height: auto;
+}
+
+.demo__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.demo__caption {
+  margin: 0;
+  min-height: 3em;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.demo__caption small {
+  display: block;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.demo__replay {
+  flex: none;
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+}
+
+/* ---------- Разрез ---------- */
+.anatomy__figure {
+  background: #f4ebda;
+  border: 1.5px solid var(--line);
+  padding: 18px;
+}
+
+.anatomy__figure svg {
+  width: 100%;
+  height: auto;
+}
+
+.parts__num--1 { background: #daa38f; color: #2b2420; }
+.parts__num--2 { background: #b5573f; color: #fff8f0; }
+.parts__num--3 { background: #3a2d26; color: #fed8a6; }
+.parts__num--4 { background: #92ada4; color: #1f2e29; }
+.parts__num--5 { background: #7a5f47; color: #fff8f0; }
+
+@media (max-width: 559px) {
+  .demo {
+    padding: 12px;
+  }
+
+  .demo__bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 900px) {
+  .anatomy {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}

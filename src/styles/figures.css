@@ -1,0 +1,255 @@
+/* Сцена с фигурами из плиток (первый экран) */
+.figure-stage {
+  --cell: 40px;
+  position: relative;
+  width: 100%;
+  max-width: min(680px, max(360px, calc(100svh - 230px)));
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.figure-stage__slots {
+  position: absolute;
+  inset: calc(100% / 9);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.figure-stage__slot {
+  margin: 5%;
+  border-radius: var(--tile-radius);
+  background:
+    radial-gradient(circle at 26% 26%, var(--slot-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 74% 26%, var(--slot-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 26% 74%, var(--slot-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 74% 74%, var(--slot-dot) 0 2px, transparent 2.5px),
+    var(--slot);
+}
+
+.figure-tile {
+  --lift: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--cell) * 0.9);
+  height: calc(var(--cell) * 0.9);
+  border-radius: var(--tile-radius);
+  box-shadow: inset 0 0 0 1.5px rgba(43, 36, 32, 0.12);
+  will-change: transform;
+}
+
+/* Тень при подъёме: меняется только прозрачность */
+.figure-tile::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 14px 20px rgba(43, 36, 32, 0.3);
+  opacity: var(--lift);
+}
+
+
+.hero__figure {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+/* Подсказка: дальше есть контент */
+.hero__cue {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  color: var(--ink-soft);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero__dots {
+  display: flex;
+  gap: 6px;
+}
+
+.hero__dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: width var(--dur-fast) var(--ease-smooth), background var(--dur-fast) var(--ease-smooth);
+}
+
+.hero__dots span.is-active {
+  width: 24px;
+  background: var(--green);
+}
+
+.hero__arrow {
+  width: 12px;
+  height: 12px;
+  border: solid var(--green);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+  animation: cue-bounce var(--dur-crawl) var(--ease-smooth) infinite alternate;
+}
+
+@keyframes cue-bounce {
+  from { translate: 0 0; }
+  to { translate: 0 var(--move-sm); }
+}
+
+@media (max-width: 899px) {
+  .figure-stage {
+    max-width: 360px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figure-tile {
+    will-change: auto;
+  }
+
+  .hero__arrow {
+    animation: none;
+  }
+
+  .hero__dots span {
+    transition: none;
+  }
+}
+
+/* Фоновые плитки: редкие, бледные, под текстом */
+.tile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop-tile {
+  position: absolute;
+  border-radius: var(--tile-radius);
+  box-shadow: inset 0 0 0 1.5px rgba(43, 36, 32, 0.1);
+  will-change: transform;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Первый экран на всю высоту окна: содержимое по центру, подсказка «листайте» видна сразу */
+@media (min-width: 900px) {
+  main > .hero {
+    min-height: calc(100svh - 136px);
+    grid-template-columns: 1fr 1.3fr;
+    align-items: center;
+  }
+}
+
+/* Первый экран шире общей колонки: меньше пустых полей на больших мониторах */
+@media (min-width: 900px) {
+  .site-header,
+  main > .hero {
+    --wide-width: min(1320px, 100vw - 2 * var(--gutter));
+    width: var(--wide-width);
+    margin-left: calc((100% - var(--wide-width)) / 2);
+  }
+
+  main > .hero {
+    min-height: calc(100svh - 160px);
+  }
+
+  main > .hero + .section {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 559px) {
+  .site-header__tag {
+    display: none;
+  }
+}
+
+/* ---------- Блок «Что это даёт»: четыре крупные плитки ---------- */
+.perks {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+.perk {
+  --perk-bg: #cf7358;
+  --perk-ink: #2b2420;
+  --perk-dot: rgba(43, 36, 32, 0.3);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 160px;
+  padding: 34px 30px 30px;
+  border-radius: calc(var(--tile-radius) * 2);
+  background: var(--perk-bg);
+  color: var(--perk-ink);
+}
+
+/* Четыре точки по углам, как втулки под плиткой */
+.perk::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 14px 14px, var(--perk-dot) 0 3px, transparent 3.5px),
+    radial-gradient(circle at calc(100% - 14px) 14px, var(--perk-dot) 0 3px, transparent 3.5px),
+    radial-gradient(circle at 14px calc(100% - 14px), var(--perk-dot) 0 3px, transparent 3.5px),
+    radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), var(--perk-dot) 0 3px, transparent 3.5px);
+  pointer-events: none;
+}
+
+.perk--terra { --perk-bg: #cf7358; --perk-ink: #2b2420; --perk-dot: rgba(43, 36, 32, 0.3); }
+.perk--sage  { --perk-bg: #92ada4; --perk-ink: #1f2e29; --perk-dot: rgba(31, 46, 41, 0.3); }
+.perk--peach { --perk-bg: #daa38f; --perk-ink: #2b2420; --perk-dot: rgba(43, 36, 32, 0.3); }
+.perk--sand  { --perk-bg: #fed8a6; --perk-ink: #2b2420; --perk-dot: rgba(43, 36, 32, 0.3); }
+
+.perk__num {
+  font: 700 15px/1 var(--font-head);
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+}
+
+.perk__title {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 560px) {
+  .perks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .perk {
+    min-height: 220px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .perks {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .perk {
+    min-height: 280px;
+  }
+}
+
+.site-header {
+  align-items: center;
+}
