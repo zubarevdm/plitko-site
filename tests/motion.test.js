@@ -51,7 +51,9 @@ describe('isLowEnd', () => {
 
   it('does not flag when the value is unknown', () => {
     expect(isLowEnd({})).toBe(false);
-    expect(isLowEnd(undefined)).toBe(false);
+    // null, а не undefined: undefined подставляет глобальный navigator (в Node 22 он есть,
+    // и на 4-ядерном CI тест падал).
+    expect(isLowEnd(null)).toBe(false);
   });
 });
 
