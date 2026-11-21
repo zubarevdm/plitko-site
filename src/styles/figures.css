@@ -10,9 +10,11 @@
 
 .figure-stage__slots {
   position: absolute;
-  inset: calc(100% / 9);
+  /* Слоты считаются от той же --cell, что и плитки: сетка совпадает при любом размере */
+  inset: var(--cell) auto auto var(--cell);
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, var(--cell));
+  grid-template-rows: repeat(7, var(--cell));
 }
 
 .figure-stage__slot {

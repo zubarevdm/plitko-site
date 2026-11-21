@@ -7,7 +7,7 @@ const HOLE = Object.freeze({ x: 266, y: 200 });
 const SHELF_TOP = Object.freeze({ x: 530, y: 120 });
 const SHELF_BOTTOM = Object.freeze({ x: 530, y: 272 });
 const ABOVE_Y = -110;
-const SHELF_TILT = 5;
+const SHELF_TILT = 0;
 const PULSE_GROWTH = 3;
 // Центры четырёх втулок: масштабируем каждую относительно своего центра
 const SLEEVE_CENTERS = Object.freeze(['244 178', '288 178', '244 222', '288 222']);

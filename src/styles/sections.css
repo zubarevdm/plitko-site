@@ -68,6 +68,7 @@
 }
 
 .anatomy__figure {
+  margin: 0;
   background: var(--card);
   border-radius: var(--radius);
   padding: 20px 12px;
@@ -220,7 +221,8 @@
 }
 
 .price__value {
-  font: 700 clamp(30px, 6vw, 56px)/1.05 var(--font-head);
+  font: 700 clamp(20px, 6vw, 56px)/1.05 var(--font-head);
+  white-space: nowrap;
 }
 
 .price p {
@@ -283,6 +285,16 @@
 
 .faq__body .anatomy {
   margin-top: 0;
+}
+
+@media (max-width: 559px) {
+  .faq__body {
+    padding: 0 10px 16px;
+  }
+
+  .faq__body .faq__lead {
+    padding: 0 12px 16px;
+  }
 }
 
 /* ---------- Form ---------- */

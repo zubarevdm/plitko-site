@@ -62,8 +62,9 @@
 .parts__num--5 { background: #7a5f47; color: #fff8f0; }
 
 @media (max-width: 559px) {
-  .demo {
-    padding: 12px;
+  .demo,
+  .anatomy__figure {
+    padding: 8px;
   }
 
   .demo__bar {
