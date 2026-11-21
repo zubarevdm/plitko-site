@@ -211,6 +211,75 @@
   border-bottom: 0;
 }
 
+
+/* Телефон: каждая строка таблицы — карточка, наш вариант первым */
+@media (max-width: 639px) {
+  .table-wrap {
+    overflow: visible;
+    background: none;
+  }
+
+  .compare,
+  .compare tbody,
+  .compare tr,
+  .compare th,
+  .compare td {
+    display: block;
+    min-width: 0;
+  }
+
+  .compare thead {
+    display: none;
+  }
+
+  .compare tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .compare tr {
+    display: flex;
+    flex-direction: column;
+    background: var(--card);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .compare tbody th {
+    order: -2;
+    font-family: var(--font-head);
+    font-size: 18px;
+    padding: 16px 18px 10px;
+    border-bottom: 0;
+  }
+
+  .compare td {
+    display: grid;
+    grid-template-columns: 122px 1fr;
+    font-size: 15px;
+    gap: 12px;
+    padding: 10px 18px;
+    border-bottom: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .compare td::before {
+    content: attr(data-label);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .compare td.is-ours {
+    order: -1;
+    border-top: 0;
+  }
+
+  .compare td.is-ours::before {
+    color: var(--ink);
+    font-weight: 700;
+  }
+}
+
 /* ---------- Price ---------- */
 .price {
   margin-top: 32px;
