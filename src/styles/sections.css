@@ -531,3 +531,18 @@ main > .hero {
   margin-top: clamp(20px, 3.5vw, 44px);
   padding: 22px;
 }
+
+/* Телефон: фигура из плиток ближе к кнопкам, без пустой полосы */
+@media (max-width: 899px) {
+  main > .hero {
+    gap: 0;
+  }
+
+  main > .hero .hero__text {
+    padding-bottom: 8px;
+  }
+
+  main > .hero .figure-stage {
+    margin-top: calc(var(--cell) * -0.6);
+  }
+}
